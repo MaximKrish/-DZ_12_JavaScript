@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Задание 1
+1 Найти в интернете макет видео плеера 
+2 Создать index.html , style.css , img
+3 Скачать все картинки (кнопки play pause)
+4 Скачать любое видео из интернета (не более 10мб) или подключить видео ссылкой -->
+    <video class="video" src="https://webcode.tools/media/video.mp4"></video>
+    <img class="play" width="50" src="img/play.svg" alt="play">
+    <img class="pause" width="50" src="img/pause.svg" alt="pause">
+    <input class="range" type="range" value="50">
+    <input class="volume" type="range" value="10">
+
+    <!-- <img src="img/volume.svg" alt="volume"> -->
+
+    <!-- Задание 2 -->
+    <!-- 1 Реализовать функционал кнопки play
+2 Реализовать функционал кнопки pause
+3 Выставить кнопки с соответствии с макетом -->
+    <!-- https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Video_and_audio_APIs -->
+
+
+    <!-- Задание 3 -->
+    <!-- 1 Реализовать прогресс видео
+2 Реализовать отображение пройденного времени
+3 Выставить элемент input type range -->
+
+
+    <!-- Задание 4 -->
+    <!-- Реализовать функционал громкости -->
+    <!-- https://prognote.ru/web-dev/front-end/javascript-and-html-video-player/ -->
+    <!-- https://freshman.tech/custom-html5-video/ -->
+
+    <script>
+        const volumeEl = document.querySelector('.volume');
+        const videoEl = document.querySelector('.video');
+        const playEl = document.querySelector('.play');
+        const pauseEl = document.querySelector('.pause');
+        const rangeEl = document.querySelector('.range');
+
+        playEl.addEventListener('click', function(e) {
+            videoEl.play();
+            // playEl.style.display = 'none';
+            // console.log(videoEl.currentTime);
+            // videoEl.currentTime;
+            videoPlay = setInterval(function() {
+                //Создаем переменную времени видео
+                let videoTime = Math.round(videoEl.currentTime);
+                //Создаем переменую всего времени видео
+                let videoLength = Math.round(videoEl.duration);
+                //Вычисляем длину дорожки
+                rangeEl.value = (videoTime * 100) / videoLength;
+            }, 10)
+        });
+        volumeEl.addEventListener('input', function(e) {
+            videoEl.volume = volumeEl.value / 100;
+            console.log(videoEl.volume);
+        });
+        pauseEl.addEventListener('click', function(e) {
+            videoEl.pause();
+            console.log(videoEl.currentTime);
+            clearInterval(videoPlay);
+        });
+    </script>
+</body>
+
+</html>
